@@ -1,0 +1,6 @@
+Django==2.2
+psycopg2
+djangorestframework==3.10.3
+django-debug-toolbar==1.7
+PyCryptodome==3.4.7
+requests

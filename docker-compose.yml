@@ -1,0 +1,46 @@
+version: '3'
+services:
+
+  otis_django:
+    build: .
+    command: ${CMD:-bash -c "pip install -r requirements.txt && python manage.py runserver 0.0.0.0:8000"}
+    container_name: otis_django
+    ports:
+      - "8007:8000"
+    volumes:
+      - ./app:/otis
+      - ./media:/media
+      - ./static:/static
+    tty: true
+    extra_hosts:
+      - "cpd.127.0.0.1.nip.io:192.168.1.249"
+    depends_on:
+      - otis_postgres
+    environment:
+      DEBUG: 'True'
+      DJANGO_SETTINGS_MODULE: ${DJANGO_SETTINGS_MODULE:-otis.settings}
+  otis_postgres:
+    build: ./containers/postgres
+    environment:
+      POSTGRES_DB: "db"
+      POSTGRES_HOST_AUTH_METHOD: "trust"
+    volumes:
+     - pgdata:/var/lib/postgresql/data
+    container_name: otis_postgres
+    ports:
+    - "5432:5432"
+  #NGINX container for test compute engine
+  otis_nginx:
+    container_name: otis_nginx
+    build: ./containers/nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - otis_django
+    volumes:
+      - ./media:/media
+      - ./static:/static
+
+volumes:
+  pgdata:
