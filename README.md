@@ -20,7 +20,7 @@ A vanilla Django application with docker-compose to enable developers to quickly
 1. Create a personal access token for GIT - [https://github.com/settings/tokens](https://github.com/settings/tokens), setting full repo permissions
 2. Install wget: sudo apt-get install wget
 3. Download code to server running following command:  \
-<code>wget -d --header="Authorization: token 9dfd5f4428cf6e19bd8f70e2dc9b9768e0dbf4cf" [https://github.com/nmcilree/otis/archive/main.zip](https://github.com/nmcilree/otis/archive/main.zip)</code>
+<code>wget -d --header="Authorization: token <token>" [https://github.com/nmcilree/otis/archive/main.zip](https://github.com/nmcilree/otis/archive/main.zip)</code>
 4. Install zip by running: sudo apt-get install zip
 5. Run unzip main.zip
 6. Update ALLOWED_HOSTS in otis-main/app/otis/settings.py to the URLs you which to allow to access the site.
